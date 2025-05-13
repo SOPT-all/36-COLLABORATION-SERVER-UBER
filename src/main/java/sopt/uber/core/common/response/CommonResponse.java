@@ -6,7 +6,8 @@ public class CommonResponse<T> {
 
     private int code;
     private String msg;
-    @JsonInclude(JsonInclude.Include.NON_NULL)  // null일 경우 응답에서 제외
+    
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public CommonResponse(int code, String msg, T data) {
@@ -20,7 +21,6 @@ public class CommonResponse<T> {
         this.msg = msg;
     }
 
-    // Getters
     public int getCode() {
         return code;
     }

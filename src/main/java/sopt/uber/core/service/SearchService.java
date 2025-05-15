@@ -27,4 +27,8 @@ public class SearchService {
                 .toList();
         return SearchKeywordListRes.of(mappedList);
     }
+
+    public void deleteAllSearch() {
+        searchRepository.deleteAll();
+    }
 }

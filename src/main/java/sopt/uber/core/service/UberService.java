@@ -19,6 +19,11 @@ public class UberService {
     }
 
     public void createUber(UberReq req) {
+
+        if (req.departures() == null || req.destination() == null) {
+            throw new BusinessException(ErrorCode.INVALID_LOCATION);
+        }
+
         if (req.departures().equals(req.destination())) {
             throw new BusinessException(ErrorCode.SAME_LOCATION);
         }

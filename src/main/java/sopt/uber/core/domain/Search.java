@@ -25,20 +25,4 @@ public class Search {
         this.address = address;
         this.date = date;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getKeyword() {
-        return keyword;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
 }

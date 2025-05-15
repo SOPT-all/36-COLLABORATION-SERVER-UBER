@@ -1,6 +1,5 @@
 package sopt.uber.api.dto.res;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public record SearchKeywordStringDto(

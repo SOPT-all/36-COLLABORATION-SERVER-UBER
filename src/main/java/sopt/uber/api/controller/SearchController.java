@@ -25,7 +25,7 @@ public class SearchController {
         return ResponseUtil.success(searchKeywordListRes);
     }
 
-    @DeleteMapping("uber/search{id}")
+    @DeleteMapping("uber/search/{id}")
     public ResponseEntity<CommonResponse<Object>> deleteSearch(@PathVariable Long id) {
         searchService.deleteSearch(id);
 

@@ -7,6 +7,7 @@ import sopt.uber.api.dto.res.SearchKeywordListRes;
 import sopt.uber.api.dto.res.SearchKeywordStringDto;
 import sopt.uber.api.exception.BusinessException;
 import sopt.uber.api.exception.ErrorCode;
+import sopt.uber.core.domain.Search;
 import sopt.uber.core.repository.SearchRepository;
 
 import java.util.List;
@@ -31,10 +32,8 @@ public class SearchService {
     }
 
     public void deleteSearch(Long id) {
-        if (searchRepository.existsById(id)) {
-            searchRepository.deleteById(id);
-        } else {
-            throw new BusinessException(ErrorCode.NOT_FOUND_ID);
-        }
+        Search search = searchRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_ID));
+        searchRepository.delete(search);
     }
 }

@@ -1,4 +1,4 @@
-package sopt.uber.api;
+package sopt.uber.api.exception;
 
 public class BusinessException extends RuntimeException {
     private final ErrorCode errorCode;

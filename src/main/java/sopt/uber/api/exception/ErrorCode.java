@@ -1,4 +1,4 @@
-package sopt.uber.api;
+package sopt.uber.api.exception;
 
 import org.springframework.http.HttpStatus;
 

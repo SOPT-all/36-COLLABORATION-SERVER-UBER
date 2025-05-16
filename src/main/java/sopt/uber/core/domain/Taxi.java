@@ -24,7 +24,7 @@ public class Taxi {
         this.comment = comment;
     }
 
-    public Taxi() {
+    protected Taxi() {
 
     }
 }

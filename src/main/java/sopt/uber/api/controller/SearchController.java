@@ -28,8 +28,8 @@ public class SearchController {
     }
 
     @DeleteMapping
-    public ResponseEntity<CommonResponse<Void>> deleteAllSearch(@PathVariable Long id) {
-        searchService.deleteAllSearch(id);
+    public ResponseEntity<CommonResponse<Void>> deleteAllSearch() {
+        searchService.deleteAllSearch();
 
         return ResponseUtil.success(null);
     }

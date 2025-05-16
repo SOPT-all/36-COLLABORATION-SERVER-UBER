@@ -9,6 +9,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import sopt.uber.core.common.response.CommonResponse;
 import sopt.uber.core.common.util.ResponseUtil;
@@ -36,6 +37,12 @@ class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<CommonResponse<Void>> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
         logger.error("HttpMessageNotReadableException: {}", ex.getMessage(), ex);
+        return ResponseUtil.fail(HttpStatus.BAD_REQUEST, ErrorCode.BAD_REQUEST.getMsg());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<CommonResponse<Void>> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
+        logger.error("MethodArgumentTypeMismatchException: {}", ex.getMessage(), ex);
         return ResponseUtil.fail(HttpStatus.BAD_REQUEST, ErrorCode.BAD_REQUEST.getMsg());
     }
 

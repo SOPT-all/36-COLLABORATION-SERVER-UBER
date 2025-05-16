@@ -16,7 +16,7 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @GetMapping("/uber/search")
+    @GetMapping("/uber/v1/search")
     public ResponseEntity<CommonResponse<SearchKeywordListRes>> getSearchList() {
         SearchKeywordListRes searchKeywordListRes = searchService.getSearchList();
 

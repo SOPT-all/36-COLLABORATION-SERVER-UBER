@@ -28,6 +28,7 @@ public class SearchService {
         return SearchKeywordListRes.of(mappedList);
     }
 
+    @Transactional
     public void deleteAllSearch() {
         searchRepository.deleteAll();
     }

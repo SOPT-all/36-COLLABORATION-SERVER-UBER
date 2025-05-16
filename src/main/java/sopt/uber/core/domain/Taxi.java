@@ -16,8 +16,7 @@ public class Taxi {
     private int guests;
     private String comment;
 
-    public Taxi(long id, String type, int min, int max, int guests, String comment) {
-        this.id = id;
+    public Taxi(String type, int min, int max, int guests, String comment) {
         this.type = type;
         this.min = min;
         this.max = max;

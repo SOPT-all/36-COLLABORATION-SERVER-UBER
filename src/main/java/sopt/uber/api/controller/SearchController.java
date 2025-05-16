@@ -26,7 +26,7 @@ public class SearchController {
     }
 
     @DeleteMapping("uber/v1/search/{id}")
-    public ResponseEntity<CommonResponse<Object>> deleteSearch(@PathVariable Long id) {
+    public ResponseEntity<CommonResponse<Void>> deleteSearch(@PathVariable Long id) {
         searchService.deleteSearch(id);
 
         return ResponseUtil.success(null);

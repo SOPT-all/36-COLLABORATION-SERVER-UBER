@@ -19,7 +19,7 @@ public class TaxiController {
         this.taxiService = taxiService;
     }
 
-    @GetMapping("/taxi")
+    @GetMapping("/v1/taxi")
     public ResponseEntity<CommonResponse<TaxiListRes>> getTaxiList() {
         TaxiListRes taxiListRes = taxiService.getTaxiList();
         return ResponseUtil.success(taxiListRes);

@@ -8,13 +8,14 @@ public record SearchKeywordStringDto(
         String address,
         String date
 ) {
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM.dd");
+
     public static SearchKeywordStringDto from(SearchKeywordDto dto) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.dd");
         return new SearchKeywordStringDto(
                 dto.id(),
                 dto.location(),
                 dto.address(),
-                dto.date().format(formatter)
+                dto.date().format(FORMATTER)
         );
     }
 }

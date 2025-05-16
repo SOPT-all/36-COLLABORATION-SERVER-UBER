@@ -17,7 +17,7 @@ public class UberController {
         this.uberService = uberService;
     }
 
-    @PostMapping("/location")
+    @PostMapping("/v1/location")
     public ResponseEntity<CommonResponse<Void>> createUber(@RequestBody UberReq req) {
         uberService.createUber(req);
         return ResponseUtil.success(null);

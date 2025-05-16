@@ -25,7 +25,7 @@ public class Search {
     private LocalDateTime date;
 
 //    private Uber uber;  관계 매핑 필요
-
+  
     protected Search() {}
 
     public Search(String keyword, String address, LocalDateTime date) {

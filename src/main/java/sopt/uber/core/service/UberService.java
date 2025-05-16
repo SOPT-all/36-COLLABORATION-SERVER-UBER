@@ -19,16 +19,18 @@ public class UberService {
     }
 
     public void createUber(UberReq req) {
+        String departures = req.departures() != null ? req.departures().trim() : null;
+        String destination = req.destination() != null ? req.destination().trim() : null;
 
-        if (req.departures() == null || req.destination() == null) {
+        if (departures == null || departures.isBlank() || destination == null || destination.isBlank()) {
             throw new BusinessException(ErrorCode.INVALID_LOCATION);
         }
 
-        if (req.departures().equals(req.destination())) {
+        if (departures.equals(destination)) {
             throw new BusinessException(ErrorCode.SAME_LOCATION);
         }
 
-        Uber uber = new Uber(req.departures(), req.destination());
+        Uber uber = new Uber(departures, destination);
         uberRepository.save(uber);
     }
 }

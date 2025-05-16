@@ -14,7 +14,8 @@ public class Uber {
     private String departures;
     private String destination;
 
-    public Uber() {
+    // 객체 생성을 제한적으로 허용하기 위한 접근 제어자 변경
+    protected Uber() {
 
     }
 

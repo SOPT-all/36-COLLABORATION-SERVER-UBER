@@ -2,10 +2,9 @@ package sopt.uber.api.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sopt.uber.api.dto.res.TaxiListRes;
+import sopt.uber.api.dto.res.TaxiListsRes;
 import sopt.uber.core.common.response.CommonResponse;
 import sopt.uber.core.common.util.ResponseUtil;
-import sopt.uber.core.domain.Taxi;
 import sopt.uber.core.service.TaxiService;
 
 import java.util.List;
@@ -20,8 +19,8 @@ public class TaxiController {
     }
 
     @GetMapping("/v1/taxi")
-    public ResponseEntity<CommonResponse<TaxiListRes>> getTaxiList() {
-        TaxiListRes taxiListRes = taxiService.getTaxiList();
-        return ResponseUtil.success(taxiListRes);
+    public ResponseEntity<CommonResponse<TaxiListsRes>> getTaxiLists() {
+        TaxiListsRes taxiListsRes = taxiService.getTaxiLists();
+        return ResponseUtil.success(taxiListsRes);
     }
 }

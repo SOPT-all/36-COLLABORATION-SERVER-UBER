@@ -56,7 +56,7 @@ public class SearchService {
         return Optional.ofNullable(destinationToUber.get(search.getKeyword()))
                 .or(() -> Optional.ofNullable(destinationToUber.get(search.getAddress())))
                 .map(uber -> new SearchKeywordDto(
-                        search.getId(),
+                        uber.getId(),
                         uber.getDestination(),
                         uber.getDepartures(),
                         uber.getDate()

@@ -16,6 +16,6 @@ public interface TaxiRepository extends JpaRepository<Taxi, Long> {
     List<TaxiRes> findAllTaxiListResponse();
 
     @Query("SELECT new sopt.uber.api.dto.res.TaxiRes(t.id, t.type, t.min, t.max, t.guests, t.comment) " +
-            "FROM Taxi t WHERE t.id IN (2, 3)")
+            "FROM Taxi t WHERE t.id IN (3, 4)")
     List<TaxiRes> findAllCaseTaxiListResponse();
 }

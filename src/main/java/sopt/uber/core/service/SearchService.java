@@ -14,9 +14,10 @@ import sopt.uber.core.repository.UberRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Transactional
@@ -28,44 +29,38 @@ public class SearchService {
         this.uberRepository = uberRepository;
         this.searchRepository = searchRepository;
     }
+
     @Transactional(readOnly = true)
     public SearchKeywordListRes getSearchList() {
         List<Search> searchList = searchRepository.findAll();
 
+        Set<String> keywordsAndAddresses = searchList.stream()
+                .flatMap(search -> Stream.of(search.getKeyword(), search.getAddress()))
+                .collect(Collectors.toSet());
+
+        List<Uber> ubers = uberRepository.findByDestinationIn(keywordsAndAddresses);
+
+        Map<String, Uber> destinationToUber = ubers.stream()
+                .collect(Collectors.toMap(Uber::getDestination, Function.identity()));
+
         List<SearchKeywordStringDto> mappedList = searchList.stream()
-                .map(search -> {
-                    String keyword = search.getKeyword();
-                    String address = search.getAddress();
-
-                    Optional<Uber> matchedByKeyword = uberRepository.findByDestination(keyword);
-                    if (matchedByKeyword.isPresent()) {
-                        Uber uber = matchedByKeyword.get();
-                        return SearchKeywordStringDto.from(new SearchKeywordDto(
-                                search.getId(),
-                                uber.getDestination(),
-                                uber.getDepartures(),
-                                uber.getDate()
-                        ));
-                    }
-
-                    Optional<Uber> matchedByAddress = uberRepository.findByDestination(address);
-                    if (matchedByAddress.isPresent()) {
-                        Uber uber = matchedByAddress.get();
-                        return SearchKeywordStringDto.from(new SearchKeywordDto(
-                                search.getId(),
-                                uber.getDestination(),
-                                uber.getDepartures(),
-                                uber.getDate()
-                        ));
-                    }
-
-                    return null;
-
-                })
-                .filter(Objects::nonNull)
+                .flatMap(search -> matchUber(destinationToUber, search)
+                        .map(dto -> Stream.of(SearchKeywordStringDto.from(dto)))
+                        .orElseGet(Stream::empty))
                 .toList();
 
         return SearchKeywordListRes.of(mappedList);
+    }
+
+    private Optional<SearchKeywordDto> matchUber(Map<String, Uber> destinationToUber, Search search) {
+        return Optional.ofNullable(destinationToUber.get(search.getKeyword()))
+                .or(() -> Optional.ofNullable(destinationToUber.get(search.getAddress())))
+                .map(uber -> new SearchKeywordDto(
+                        search.getId(),
+                        uber.getDestination(),
+                        uber.getDepartures(),
+                        uber.getDate()
+                ));
     }
 
     @Transactional

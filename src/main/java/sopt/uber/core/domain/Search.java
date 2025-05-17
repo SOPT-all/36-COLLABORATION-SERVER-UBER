@@ -20,17 +20,31 @@ public class Search {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @CreatedDate
-    @Column(name = "date" , updatable = false)
-    private LocalDateTime date;
-
-//    private Uber uber;  관계 매핑 필요
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "uber_id")
+    private Uber uber;
   
     protected Search() {}
 
-    public Search(String keyword, String address, LocalDateTime date) {
+    public Search(String keyword, String address, Uber uber) {
+        this.uber = uber;
         this.keyword = keyword;
         this.address = address;
-        this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public Uber getUber() {
+        return uber;
     }
 }

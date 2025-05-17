@@ -22,4 +22,18 @@ public class UberController {
         uberService.createUber(req);
         return ResponseUtil.success(null);
     }
+
+    @DeleteMapping("/v1/search/{id}")
+    public ResponseEntity<CommonResponse<Void>> deleteSearch(@PathVariable Long id) {
+        uberService.deleteSearch(id);
+
+        return ResponseUtil.success(null);
+    }
+
+    @DeleteMapping("/v1/search")
+    public ResponseEntity<CommonResponse<Void>> deleteAllSearch() {
+        uberService.deleteAllSearch();
+
+        return ResponseUtil.success(null);
+    }
 }

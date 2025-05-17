@@ -3,6 +3,7 @@ package sopt.uber.api.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import sopt.uber.api.dto.res.SearchKeywordListRes;
@@ -11,6 +12,7 @@ import sopt.uber.core.common.util.ResponseUtil;
 import sopt.uber.core.service.SearchService;
 
 @RestController
+@RequestMapping("/uber/v1/search")
 public class SearchController {
     private final SearchService searchService;
 
@@ -18,16 +20,16 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @GetMapping("/uber/v1/search")
+    @GetMapping
     public ResponseEntity<CommonResponse<SearchKeywordListRes>> getSearchList() {
         SearchKeywordListRes searchKeywordListRes = searchService.getSearchList();
 
         return ResponseUtil.success(searchKeywordListRes);
     }
 
-    @DeleteMapping("uber/v1/search/{id}")
-    public ResponseEntity<CommonResponse<Void>> deleteSearch(@PathVariable Long id) {
-        searchService.deleteSearch(id);
+    @DeleteMapping
+    public ResponseEntity<CommonResponse<Void>> deleteAllSearch() {
+        searchService.deleteAllSearch();
 
         return ResponseUtil.success(null);
     }

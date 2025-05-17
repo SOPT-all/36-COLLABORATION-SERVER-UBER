@@ -12,7 +12,7 @@ import sopt.uber.core.common.util.ResponseUtil;
 import sopt.uber.core.service.SearchService;
 
 @RestController
-@RequestMapping("/uber/v1/search")
+@RequestMapping("/uber/v1")
 public class SearchController {
     private final SearchService searchService;
 
@@ -20,21 +20,21 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @GetMapping
+    @GetMapping("/search")
     public ResponseEntity<CommonResponse<SearchKeywordListRes>> getSearchList() {
         SearchKeywordListRes searchKeywordListRes = searchService.getSearchList();
 
         return ResponseUtil.success(searchKeywordListRes);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/search/{id}")
     public ResponseEntity<CommonResponse<Void>> deleteSearch(@PathVariable Long id) {
         searchService.deleteSearch(id);
 
         return ResponseUtil.success(null);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/search")
     public ResponseEntity<CommonResponse<Void>> deleteAllSearch() {
         searchService.deleteAllSearch();
 

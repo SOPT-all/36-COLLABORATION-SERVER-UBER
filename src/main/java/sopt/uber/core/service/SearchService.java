@@ -32,6 +32,12 @@ public class SearchService {
     }
 
     @Transactional
+    public void deleteSearch(Long id) {
+        Search search = searchRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_ID));
+        searchRepository.delete(search);
+
+    @Transactional
     public void deleteAllSearch() {
         searchRepository.deleteAll();
     }

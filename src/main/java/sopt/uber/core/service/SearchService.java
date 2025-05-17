@@ -31,6 +31,7 @@ public class SearchService {
         return SearchKeywordListRes.of(mappedList);
     }
 
+    @Transactional
     public void deleteSearch(Long id) {
         Search search = searchRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_ID));

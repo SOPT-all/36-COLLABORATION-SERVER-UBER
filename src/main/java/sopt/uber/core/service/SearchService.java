@@ -40,16 +40,41 @@ public class SearchService {
 
         List<Uber> ubers = uberRepository.findByDestinationIn(keywordsAndAddresses);
 
-        Map<String, Uber> destinationToUber = ubers.stream()
-                .collect(Collectors.toMap(Uber::getDestination, Function.identity()));
+        Map<String, List<Uber>> destinationToUbers = ubers.stream()
+                .collect(Collectors.groupingBy(Uber::getDestination));
 
-        List<SearchKeywordStringDto> mappedList = searchList.stream()
-                .flatMap(search -> matchUber(destinationToUber, search)
-                        .map(dto -> Stream.of(SearchKeywordStringDto.from(dto)))
-                        .orElseGet(Stream::empty))
-                .toList();
+        List<SearchKeywordStringDto> result = new ArrayList<>();
 
-        return SearchKeywordListRes.of(mappedList);
+        for (Search search : searchList) {
+            String keyword = search.getKeyword();
+            String address = search.getAddress();
+
+            List<Uber> keywordMatched = destinationToUbers.getOrDefault(keyword, List.of());
+            for (Uber uber : keywordMatched) {
+                SearchKeywordDto skDto = new SearchKeywordDto(
+                        uber.getId(),
+                        uber.getDestination(),
+                        address,
+                        uber.getDate()
+                );
+                result.add(SearchKeywordStringDto.from(skDto));
+            }
+
+            List<Uber> addressMatched = destinationToUbers.getOrDefault(address, List.of());
+            for (Uber uber : addressMatched) {
+                SearchKeywordDto skDto = new SearchKeywordDto(
+                        uber.getId(),
+                        uber.getDestination(),
+                        keyword,
+                        uber.getDate()
+                );
+                result.add(SearchKeywordStringDto.from(skDto));
+            }
+        }
+
+        result.sort((o1, o2) -> o2.id().compareTo(o1.id()));
+
+        return SearchKeywordListRes.of(result);
     }
 
     private Optional<SearchKeywordDto> matchUber(Map<String, Uber> destinationToUber, Search search) {

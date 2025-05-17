@@ -19,15 +19,10 @@ public class Search {
 
     @Column(name = "address", nullable = false)
     private String address;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "uber_id")
-    private Uber uber;
   
     protected Search() {}
 
     public Search(String keyword, String address, Uber uber) {
-        this.uber = uber;
         this.keyword = keyword;
         this.address = address;
     }
@@ -42,9 +37,5 @@ public class Search {
 
     public String getAddress() {
         return address;
-    }
-
-    public Uber getUber() {
-        return uber;
     }
 }

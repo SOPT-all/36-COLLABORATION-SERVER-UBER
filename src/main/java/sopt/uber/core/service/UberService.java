@@ -41,4 +41,14 @@ public class UberService {
         Uber uber = new Uber(departures, destination);
         uberRepository.save(uber);
     }
+
+    public void deleteSearch(Long id) {
+        Uber uber = uberRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_ID));
+        uberRepository.delete(uber);
+    }
+
+    public void deleteAllSearch() {
+        uberRepository.deleteAll();
+    }
 }

@@ -27,7 +27,7 @@ public class SearchController {
         return ResponseUtil.success(searchKeywordListRes);
     }
 
-    @DeleteMapping("/search/{id}")
+/*    @DeleteMapping("/search/{id}")
     public ResponseEntity<CommonResponse<Void>> deleteSearch(@PathVariable Long id) {
         searchService.deleteSearch(id);
 
@@ -39,5 +39,5 @@ public class SearchController {
         searchService.deleteAllSearch();
 
         return ResponseUtil.success(null);
-    }
+    }*/
 }

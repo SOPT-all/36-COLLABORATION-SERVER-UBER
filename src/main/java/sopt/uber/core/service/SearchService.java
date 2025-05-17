@@ -36,6 +36,7 @@ public class SearchService {
         Search search = searchRepository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCode.NOT_FOUND_ID));
         searchRepository.delete(search);
+    }
 
     @Transactional
     public void deleteAllSearch() {

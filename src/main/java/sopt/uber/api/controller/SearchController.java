@@ -27,6 +27,8 @@ public class SearchController {
         return ResponseUtil.success(searchKeywordListRes);
     }
 
+
+
     @DeleteMapping
     public ResponseEntity<CommonResponse<Void>> deleteAllSearch() {
         searchService.deleteAllSearch();

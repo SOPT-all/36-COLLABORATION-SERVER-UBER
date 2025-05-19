@@ -15,13 +15,15 @@ public class Taxi {
     private int max;
     private int guests;
     private String comment;
+    private String image;
 
-    public Taxi(String type, int min, int max, int guests, String comment) {
+    public Taxi(String type, int min, int max, int guests, String comment, String image) {
         this.type = type;
         this.min = min;
         this.max = max;
         this.guests = guests;
         this.comment = comment;
+        this.image = image;
     }
 
     protected Taxi() {

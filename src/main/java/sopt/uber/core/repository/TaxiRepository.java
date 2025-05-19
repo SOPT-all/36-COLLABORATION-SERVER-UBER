@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface TaxiRepository extends JpaRepository<Taxi, Long> {
 
-    @Query("SELECT new sopt.uber.api.dto.res.TaxiRes(t.id, t.type, t.min, t.max, t.guests, t.comment) " +
+    @Query("SELECT new sopt.uber.api.dto.res.TaxiRes(t.id, t.type, t.min, t.max, t.guests, t.comment, t.image) " +
             "FROM Taxi t WHERE t.id IN (1, 2)")
     List<TaxiRes> findAllTaxiListResponse();
 
-    @Query("SELECT new sopt.uber.api.dto.res.TaxiRes(t.id, t.type, t.min, t.max, t.guests, t.comment) " +
+    @Query("SELECT new sopt.uber.api.dto.res.TaxiRes(t.id, t.type, t.min, t.max, t.guests, t.comment, t.image) " +
             "FROM Taxi t WHERE t.id IN (3, 4)")
     List<TaxiRes> findAllCaseTaxiListResponse();
 }

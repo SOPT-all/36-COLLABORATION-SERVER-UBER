@@ -6,5 +6,7 @@ public record TaxiRes(
         int min,
         int max,
         int guests,
-        String comment
+        String comment,
+
+        String image
 ) {}

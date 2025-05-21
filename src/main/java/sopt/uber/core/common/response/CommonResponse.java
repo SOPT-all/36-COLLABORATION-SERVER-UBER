@@ -6,8 +6,6 @@ public class CommonResponse<T> {
 
     private int code;
     private String msg;
-    
-    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     public CommonResponse(int code, String msg, T data) {
